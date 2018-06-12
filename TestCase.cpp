@@ -11,7 +11,7 @@ void TestCase::print(){
     printResult <<  "Test int operators: " << numFail << " failed, " <<
                 numSucsses << " passed, " << numFail + numSucsses << " total."
                 << endl << "---" << endl;
-    cout << printResult.str();
+    cerr << printResult.str();
 }
 
 void TestCase::passedTest(){
@@ -19,7 +19,6 @@ void TestCase::passedTest(){
 
 }
 
-void TestCase::failedTest(string nameFail){
+void TestCase::failedTest(){
     numFail++;
-    errStream << nameFail << "\n";
 }
