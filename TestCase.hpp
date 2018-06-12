@@ -16,8 +16,8 @@ class TestCase {
     string errString;
     ostream& errStream;
 
-    void passedTest();
-    void failedTest(string errMsg);
+    void passed();
+    void failed(string errMsg);
 
 public:
 
@@ -30,24 +30,24 @@ public:
 
     template<typename T> TestCase& check_equal(T x, T y){
         if (x==y){
-            passedTest();
+            passed();
         }else{
             stringstream outputStream;
             outputStream << errString << ": Failure in test #" <<
                          numSucsses+numFail+1 << ": " << y << " should equal " << x << "!"<<endl;
-            failedTest(outputStream.str());
+            failed(outputStream.str());
         }
         return *this;
     }
 
     template<typename T> TestCase& check_different(T x, T y){
         if (x!=y){
-            passedTest();
+            passed();
         }else{
             stringstream outputStream;
             outputStream << errString << ": Failure in test #" << numSucsses+numFail+1 << ": " <<
                  y << " should not equal " << x << "!"<<endl;
-            failedTest(outputStream.str());
+            failed(outputStream.str());
         }
         return *this;
     }
@@ -55,14 +55,14 @@ public:
 
     template<typename Function, typename T, typename S> TestCase& check_function(Function f,T x, S y) {
         if(f(x)==y){
-            passedTest();
+            passed();
         }
         else{
             stringstream outputStream;
             outputStream << errString << ": Failure in test #" <<
                  numSucsses+numFail+1 << ": " << "Function should return "<< y <<
                  " but returned " << f(x) << "!"<<endl;
-            failedTest(outputStream.str());
+            failed(outputStream.str());
         }
 
         return *this;
@@ -75,14 +75,14 @@ public:
         s << x;
 
         if(s.str()==y){
-            passedTest();
+            passed();
         }
         else{
             stringstream outputStream;
             outputStream << errString << ": Failure in test #" << numSucsses+numFail+1 <<
                 ": " << "string value should be "<< y
                 << " but is " << s.str() << "!"<<endl;
-            failedTest(outputStream.str());
+            failed(outputStream.str());
         }
 
         return *this;
