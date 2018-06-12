@@ -56,7 +56,8 @@ public:
         if (x!=y){
             passedTest();
         }else{
-           cerr <<"the objects are equal"<<endl;
+            cerr << errString << ": Failure in test #" <<
+                 numSucsses+numFail+1 << ": " << y << " should not e qual " << x << "!"<<endl;
            failedTest();
         }
         return *this;
