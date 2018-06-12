@@ -15,8 +15,9 @@ class TestCase {
 
     string errString;
     ostream& errStream;
+    stringstream outputStream;
 
-    void failedTest(string nameFail);
+    void failedTest();
     void passedTest();
 
 public:
@@ -32,9 +33,9 @@ public:
         if (x==y){
             passedTest();
         }else{
-            stringstream outputStream;
-            outputStream << errString << ": Failure in test #" << numSucsses+numFail+1 << ": " << y << " should equal " << x << "!";
-            failedTest(outputStream.str());
+            outputStream << errString << ": Failure in test #" <<
+                         numSucsses+numFail+1 << ": " << y << " should equal " << x << "!"<<endl;
+            failedTest();
         }
         return *this;
     }
@@ -43,9 +44,9 @@ public:
         if (x!=y){
             passedTest();
         }else{
-            stringstream outputStream;
-            outputStream << errString << ": Failure in test #" << numSucsses+numFail+1 << ": " << y << " should equal " << x << "!";
-            failedTest(outputStream.str());
+            outputStream << errString << ": Failure in test #" <<
+                         numSucsses+numFail+1 << ": " << y << " should equal " << x << "!"<<endl;
+            failedTest();
         }
         return *this;
     }
@@ -54,9 +55,8 @@ public:
         if (x!=y){
             passedTest();
         }else{
-            stringstream outputStream;
-            outputStream <<"the objects are equal";
-            failedTest(outputStream.str());
+            outputStream <<"the objects are equal"<<endl;
+            failedTest();
         }
         return *this;
     }
@@ -66,9 +66,10 @@ public:
             passedTest();
         }
         else{
-            stringstream outputStream;
-            outputStream << errString << ": Failure in test #" << (numSucsses+numFail+1) << ": " << " Function should return "<< y << " but returned " << f(x) << "!";
-            failedTest(outputStream.str());
+            outputStream << errString << ": Failure in test #" <<
+                         (numSucsses+numFail+1) << ": " << " Function should return "<<
+                         y << " but returned " << f(x) << "!"<<endl;
+            failedTest();
         }
 
         return *this;
@@ -84,9 +85,10 @@ public:
             passedTest();
         }
         else{
-            stringstream outputStream;
-            outputStream << errString << ": Failure in test #" << (numSucsses+numFail+1) << ": " << " string value should be "<< y << " but returned " << s.str() << "!";
-            failedTest(outputStream.str());
+            outputStream << errString << ": Failure in test #" <<
+                         (numSucsses+numFail+1) << ": " << " string value should be "<< y <<
+                         " but returned " << s.str() << "!"<<endl;
+            failedTest();
         }
 
         return *this;
