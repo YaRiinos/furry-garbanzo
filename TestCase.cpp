@@ -7,7 +7,7 @@
 void TestCase::print(){
 
     stringstream printResult;
-
+    cout<<outputStream.str();
     printResult <<  "Test int operators: " << numFail << " failed, " <<
                 numSucsses << " passed, " << numFail + numSucsses << " total."
                 << endl << "---" << endl;
@@ -19,7 +19,6 @@ void TestCase::passedTest(){
 
 }
 
-void TestCase::failedTest(string nameFail){
+void TestCase::failedTest(){
     numFail++;
-    errStream << nameFail << "\n";
 }
