@@ -7,11 +7,16 @@
 void TestCase::print(){
 
     stringstream printResult;
-    cout<<outputStream.str();
-    printResult <<  "Test int operators: " << numFail << " failed, " <<
+    cerr <<outputStream.str();
+
+    outputStream.str("");
+    outputStream.clear();
+
+    outputStream<< "Test int operators: " << numFail << " failed, " <<
                 numSucsses << " passed, " << numFail + numSucsses << " total."
                 << endl << "---" << endl;
-    cout << printResult.str();
+
+    cerr << outputStream.str();
 }
 
 void TestCase::passedTest(){
