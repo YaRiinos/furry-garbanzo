@@ -15,12 +15,12 @@ void TestCase::print(){
     errStream << printResult.str();
 }
 
-void TestCase::passedTest(){
+void TestCase::passed(){
     numSucsses++;
 
 }
 
-void TestCase::failedTest(string errMsg){
+void TestCase::failed(string errMsg){
     numFail++;
     errStream<<errMsg;
 }
