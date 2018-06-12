@@ -15,17 +15,16 @@ class TestCase {
 
     string errString;
     ostream& errStream;
-    stringstream outputStream;
 
-    void failedTest();
     void passedTest();
+    void failedTest(string errMsg);
 
 public:
 
     int numSucsses, numFail;
 
     TestCase(string newErrString, ostream& newErrStream) :
-            errString(std::move(newErrString)), errStream(newErrStream), numSucsses(0), numFail(0){}
+            errString(newErrString), errStream(newErrStream), numSucsses(0), numFail(0){}
 
     void print();
 
@@ -33,10 +32,10 @@ public:
         if (x==y){
             passedTest();
         }else{
-
-            cerr << errString << ": Failure in test #" <<
+            stringstream outputStream;
+            outputStream << errString << ": Failure in test #" <<
                          numSucsses+numFail+1 << ": " << y << " should equal " << x << "!"<<endl;
-            failedTest();
+            failedTest(outputStream.str());
         }
         return *this;
     }
@@ -45,33 +44,25 @@ public:
         if (x!=y){
             passedTest();
         }else{
-            cerr << errString << ": Failure in test #" << numSucsses+numFail+1 << ": " <<
-                 y << " should equal " << x << "!"<<endl;
-            failedTest();
+            stringstream outputStream;
+            outputStream << errString << ": Failure in test #" << numSucsses+numFail+1 << ": " <<
+                 y << " should not equal " << x << "!"<<endl;
+            failedTest(outputStream.str());
         }
         return *this;
     }
 
-    template<typename T> TestCase& check_function(T x, T y){
-        if (x!=y){
-            passedTest();
-        }else{
-            cerr << errString << ": Failure in test #" <<
-                 numSucsses+numFail+1 << ": " << y << " should not e qual " << x << "!"<<endl;
-           failedTest();
-        }
-        return *this;
-    }
 
     template<typename Function, typename T, typename S> TestCase& check_function(Function f,T x, S y) {
         if(f(x)==y){
             passedTest();
         }
         else{
-            cerr << errString << ": Failure in test #" <<
-                 (numSucsses+numFail+1) << ": " << " Function should return "<< y <<
+            stringstream outputStream;
+            outputStream << errString << ": Failure in test #" <<
+                 numSucsses+numFail+1 << ": " << "Function should return "<< y <<
                  " but returned " << f(x) << "!"<<endl;
-            failedTest();
+            failedTest(outputStream.str());
         }
 
         return *this;
@@ -87,10 +78,11 @@ public:
             passedTest();
         }
         else{
-           cerr << errString << ": Failure in test #" << (numSucsses+numFail+1) <<
-                ": " << " string value should be "<< y
-                << " but returned " << s.str() << "!"<<endl;
-            failedTest();
+            stringstream outputStream;
+            outputStream << errString << ": Failure in test #" << numSucsses+numFail+1 <<
+                ": " << "string value should be "<< y
+                << " but is " << s.str() << "!"<<endl;
+            failedTest(outputStream.str());
         }
 
         return *this;
